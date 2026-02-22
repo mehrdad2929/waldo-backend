@@ -32,6 +32,7 @@ describe('Waldo Game API Workflow', () => {
             .post('/api/signup')
             .send({
                 username: 'testplayer',
+                email: 'test@example.com',
                 password: 'Pass123'
             })
             .expect(201);
