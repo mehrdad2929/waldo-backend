@@ -55,6 +55,9 @@ exports.getProfile = async (req, res, next) => {
             select: {
                 id: true,
                 username: true,
+                name: true,
+                picture: true,
+                provider: true,
                 createdAt: true,
             }
         });

@@ -1,8 +1,11 @@
 const { Router } = require("express");
 const appController = require('../controllers/appController');
+const authRoutes = require('./authRoutes');
 const { loginValidation, validate, signupValidation } = require("../middlewares/validation");
-const { authenticateToken, roleRequired } = require("../middlewares/auth");
+const { authenticateToken } = require("../middlewares/auth");
 const appRouter = Router();
+
+appRouter.use('/', authRoutes);
 
 appRouter.post('/api/signup',
     signupValidation,
@@ -20,21 +23,6 @@ appRouter.get('/api/profile',
     authenticateToken,
     appController.getProfile
 );
-
-// appRouter.put('/api/profile',
-//     authenticateToken,
-//     appController.updateProfile
-// )
-
-// appRouter.delete('/api/account',
-//     authenticateToken,
-//     appController.deleteAccount
-// )
-// scoreboard  routes:
-// appRouter.get('api/scoreboard',
-//     authenticateToken,
-//     appController.getScoreboard
-// )
 
 //update score for a level (player in the jwt)
 appRouter.put('/api/score/:levelId',
