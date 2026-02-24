@@ -1,5 +1,8 @@
-// Set test database URL from DATABASE_TEST_URL env var (set by CI or local .env)
-process.env.DATABASE_URL = process.env.DATABASE_TEST_URL;
+// Use DATABASE_URL (set by CI via env or from .env for local)
+const dbUrl = process.env.DATABASE_URL || process.env.DATABASE_TEST_URL;
+if (dbUrl) {
+    process.env.DATABASE_URL = dbUrl;
+}
 
 const request = require('supertest');
 const app = require('./app');
