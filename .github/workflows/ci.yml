@@ -52,7 +52,14 @@ jobs:
           echo "GITHUB_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
           echo "GITHUB_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
           echo "GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback" >> .env
-          cat .env
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Run Prisma migrations
+        run: npx prisma db push
+        env:
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public"
 
       - name: Run tests
         run: npm test
