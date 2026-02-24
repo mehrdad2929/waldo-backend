@@ -38,22 +38,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create .env file
+        run: |
+          echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public" >> .env
+          echo "JWT_SECRET=test-secret-key-for-ci" >> .env
+          echo "PORT=3000" >> .env
+          echo "FRONTEND_URL=http://localhost:5173" >> .env
+          echo "GOOGLE_CLIENT_ID=test" >> .env
+          echo "GOOGLE_CLIENT_SECRET=test" >> .env
+          echo "GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback" >> .env
+          echo "GITHUB_CLIENT_ID=test" >> .env
+          echo "GITHUB_CLIENT_SECRET=test" >> .env
+          echo "GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback" >> .env
+          echo "NODE_ENV=test" >> .env
+
       - name: Generate Prisma Client
         run: npx prisma generate
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public
 
       - name: Run Prisma migrations
         run: npx prisma db push
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public
 
       - name: Run tests
         run: npm test
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public
-          JWT_SECRET: test-secret-key
-          GOOGLE_CLIENT_ID: test
-          GOOGLE_CLIENT_SECRET: test
-          GITHUB_CLIENT_ID: test
-          GITHUB_CLIENT_SECRET: test
