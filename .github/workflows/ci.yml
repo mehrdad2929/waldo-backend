@@ -40,17 +40,19 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public" >> .env
-          echo "JWT_SECRET=test-secret-key-for-ci" >> .env
-          echo "PORT=3000" >> .env
-          echo "FRONTEND_URL=http://localhost:5173" >> .env
-          echo "GOOGLE_CLIENT_ID=test" >> .env
-          echo "GOOGLE_CLIENT_SECRET=test" >> .env
-          echo "GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback" >> .env
-          echo "GITHUB_CLIENT_ID=test" >> .env
-          echo "GITHUB_CLIENT_SECRET=test" >> .env
-          echo "GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback" >> .env
-          echo "NODE_ENV=test" >> .env
+          cat >> .env << EOF
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          JWT_SECRET=${{ secrets.JWT_SECRET }}
+          PORT=3000
+          FRONTEND_URL=http://localhost:5173
+          GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+          GITHUB_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}
+          GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback
+          NODE_ENV=test
+          EOF
 
       - name: Generate Prisma Client
         run: npx prisma generate
