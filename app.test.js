@@ -1,5 +1,7 @@
-// Set test database URL before loading the app
-process.env.DATABASE_URL = 'postgresql://mehrdad@localhost:5432/waldo_db_test?schema=public';
+// Set test database URL (fallback to local only if not set in environment)
+if (!process.env.DATABASE_URL) {
+    process.env.DATABASE_URL = 'postgresql://mehrdad@localhost:5432/waldo_db_test?schema=public';
+}
 
 const request = require('supertest');
 const app = require('./app');
