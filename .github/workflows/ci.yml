@@ -41,7 +41,7 @@ jobs:
       - name: Create .env file
         run: |
           rm -f .env
-          echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public" > .env
+          echo "DATABASE_TEST_URL=postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public" > .env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
           echo "PORT=3000" >> .env
           echo "FRONTEND_URL=http://localhost:5173" >> .env
