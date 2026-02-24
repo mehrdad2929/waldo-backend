@@ -38,22 +38,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create .env file
+        run: |
+          echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public" > .env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+          echo "PORT=3000" >> .env
+          echo "FRONTEND_URL=http://localhost:5173" >> .env
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+          echo "GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback" >> .env
+          echo "GITHUB_CLIENT_ID=${{ secrets.GH_CLIENT_ID }}" >> .env
+          echo "GITHUB_CLIENT_SECRET=${{ secrets.GH_CLIENT_SECRET }}" >> .env
+          echo "GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback" >> .env
+
       - name: Generate Prisma Client
         run: npx prisma generate
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public
 
       - name: Run Prisma migrations
         run: npx prisma db push
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public
 
       - name: Run tests
         run: npm test
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/waldo_db_test?schema=public
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-          GITHUB_CLIENT_ID: ${{ secrets.GH_CLIENT_ID }}
-          GITHUB_CLIENT_SECRET: ${{ secrets.GH_CLIENT_SECRET }}
