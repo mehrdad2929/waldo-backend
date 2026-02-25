@@ -5,18 +5,10 @@ const { loginValidation, validate, signupValidation } = require("../middlewares/
 const { authenticateToken } = require("../middlewares/auth");
 const appRouter = Router();
 
-appRouter.get('/test', (req, res) => {
-    res.json({ message: 'test works' });
-});
-
 appRouter.use('/', authRoutes);
 
 appRouter.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
-
-appRouter.post('/api/hi', (req, res) => {
-    res.json({ message: 'hello' });
 });
 
 appRouter.post('/api/signup',
