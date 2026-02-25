@@ -7,6 +7,10 @@ const appRouter = Router();
 
 appRouter.use('/', authRoutes);
 
+appRouter.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 appRouter.post('/api/signup',
     signupValidation,
     validate,
