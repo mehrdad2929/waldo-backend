@@ -1,24 +1,26 @@
 generator client {
     provider = "prisma-client-js"
+    output   = "../generated/prisma"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 model User {
-    id        Int        @id @default(autoincrement())
-    username  String     @unique
-    email     String?
-    password  String?
-    name      String?
-    picture   String?
-    provider  String?    // 'local', 'google', 'github'
-    providerId String?   // OAuth provider user ID
+    id         Int         @id @default(autoincrement())
+    username   String      @unique
+    email      String?
+    password   String?
+    name       String?
+    picture    String?
+    provider   String? // 'local', 'google', 'github'
+    providerId String? // OAuth provider user ID
     gameScores GameScore[]
-    createdAt DateTime  @default(now())
-    updatedAt DateTime  @default(now())
+    createdAt  DateTime    @default(now())
+    updatedAt  DateTime    @default(now())
 
     @@unique([provider, providerId])
 }
