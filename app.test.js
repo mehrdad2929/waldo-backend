@@ -6,7 +6,7 @@ if (dbUrl) {
 
 const request = require('supertest');
 const app = require('./app');
-const { PrismaClient } = require('./generated/prisma/client');
+const { PrismaClient } = require('@prisma/client');
 
 const testPrisma = new PrismaClient();
 
