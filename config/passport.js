@@ -2,7 +2,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const prisma = require('../db/prisma');
-require('@dotenvx/dotenvx').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('@dotenvx/dotenvx').config();
+}
 
 let initialized = false;
 

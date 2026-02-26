@@ -1,4 +1,6 @@
-require('@dotenvx/dotenvx').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('@dotenvx/dotenvx').config();
+}
 const express = require('express');
 const appRouter = require('./routes/appRoutes');
 const prisma = require('./db/prisma');

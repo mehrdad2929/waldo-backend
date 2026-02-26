@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-require('@dotenvx/dotenvx').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('@dotenvx/dotenvx').config();
+}
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 

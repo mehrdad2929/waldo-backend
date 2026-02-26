@@ -1,5 +1,7 @@
 const prisma = require('../db/prisma');
-require('@dotenvx/dotenvx').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('@dotenvx/dotenvx').config();
+}
 const jwt = require('jsonwebtoken');
 
 exports.authenticateToken = async (req, res, next) => {
