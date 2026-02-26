@@ -14,5 +14,5 @@
   ],
   "framework": null,
   "installCommand": "npm install",
-  "buildCommand": "npx prisma generate"
+  "buildCommand": "npm run postinstall"
 }
