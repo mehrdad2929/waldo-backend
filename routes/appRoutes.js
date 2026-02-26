@@ -7,6 +7,16 @@ const appRouter = Router();
 
 appRouter.use('/', authRoutes);
 
+appRouter.get('/api/debug-env', (req, res) => {
+    res.json({
+        hasDatabaseUrl: !!process.env.DATABASE_URL,
+        databaseUrlPrefix: process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 20) : 'undefined',
+        hasJwtSecret: !!process.env.JWT_SECRET,
+        nodeEnv: process.env.NODE_ENV,
+        allEnvKeys: Object.keys(process.env).filter(k => !k.includes('SECRET')).sort()
+    });
+});
+
 appRouter.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
