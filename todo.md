@@ -1,14 +1,3 @@
-
-Options for What's Next
-| Option | What It Does |
-|--------|--------------|
-| 1. Merge ci-cd → main | Moves CI to main, CI will run on main pushes |
-| 2. Add linting to CI | Add ESLint check to workflow |
-| 3. Push frontend | Push the frontend changes to its repo |
-| 4. Test manually | Run tests locally first |
-| 5. Deploy setup (CD) | Not yet - you said no deployment |
-
-
 Nobody cares what course you bought.
 
 Build something.
